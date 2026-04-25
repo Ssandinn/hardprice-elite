@@ -2,20 +2,73 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>HardPrice Elite</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <style>
-body{margin:0;background:#09090b;color:#fff;font-family:Arial;padding:40px}
-.card{background:#18181b;padding:25px;border-radius:16px;max-width:700px;margin:auto}
-h1{font-size:42px;margin:0 0 10px}
-p{color:#aaa}
+body {
+  margin: 0;
+  background: #09090b;
+  color: #fff;
+  font-family: Arial;
+  padding: 40px;
+}
+
+.container {
+  max-width: 900px;
+  margin: auto;
+}
+
+.card {
+  background: #18181b;
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 15px;
+}
+
+h1 {
+  font-size: 40px;
+}
 </style>
 </head>
+
 <body>
-<div class="card">
-<h1>HardPrice Elite 🔥</h1>
-<p>Site online com sucesso.</p>
-<p>Em breve: preços reais de GPUs NVIDIA e CPUs AM4.</p>
+<div class="container">
+  <h1>HardPrice Elite 🔥</h1>
+  <div id="list"></div>
 </div>
+
+<script>
+const supabase = window.supabase.createClient(
+  "https://tzrswsufnerjvprznscs.supabase.co",
+  "sb_publishable_SK3htiUMeFr9WE9OLgxJRA_n-EyYjvA"
+);
+
+async function loadData() {
+  const { data, error } = await supabase
+    .from("offers")
+    .select("*");
+
+  const list = document.getElementById("list");
+
+  if (error) {
+    list.innerHTML = "Erro ao carregar dados";
+    return;
+  }
+
+  list.innerHTML = data.map(item => `
+    <div class="card">
+      <h2>${item.name}</h2>
+      <p>R$ ${item.price}</p>
+      <p>${item.store}</p>
+    </div>
+  `).join("");
+}
+
+loadData();
+</script>
+
 </body>
 </html>
