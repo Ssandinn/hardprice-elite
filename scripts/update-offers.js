@@ -24,7 +24,13 @@ async function updateOffers() {
   }
 
   await supabase.from("offers").delete().neq("id", 0);
-  await supabase.from("offers").insert(ofertas);
+  const { error } = await supabase.from("offers").insert(ofertas);
+
+if (error) {
+  console.error("Erro ao inserir:", error);
+} else {
+  console.log("Inserido com sucesso!");
+}
 
   console.log("Ofertas atualizadas:", ofertas.length);
 }
