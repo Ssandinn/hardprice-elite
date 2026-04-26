@@ -1,58 +1,43 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HardPrice Elite</title>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<style>
-body{margin:0;background:#09090b;color:white;font-family:Arial;padding:40px}
-.container{max-width:900px;margin:auto}
-.card{background:#18181b;padding:20px;border-radius:14px;margin:15px 0;border:1px solid #27272a}
-h1{font-size:42px}
-.price{font-size:24px;font-weight:bold;color:#22c55e}
-.error{color:#f87171}
-</style>
+  <meta charset="UTF-8">
+  <title>HardPrice</title>
+  <style>
+    body { background:#09090b; color:white; font-family:Arial; padding:30px; }
+    .card { background:#18181b; border:1px solid #333; margin:12px 0; padding:18px; border-radius:12px; }
+    a { color:white; background:#22c55e; padding:10px 14px; border-radius:8px; text-decoration:none; display:inline-block; }
+  </style>
 </head>
 <body>
-<div class="container">
-  <h1>HardPrice Elite 🔥</h1>
-  <div id="lista">Carregando ofertas...</div>
-</div>
+
+<h1>🔥 Melhores Ofertas 🔥</h1>
+<div id="ofertas">Carregando...</div>
 
 <script>
-const supabaseClient = window.supabase.createClient(
-  "https://tzrswsufnerjvprznscs.supabase.co",
-  "sb_publishable_SK3htiUMeFr9WE9OLgxJRA_n-EyYjvA"
-);
+async function carregar() {
+  const res = await fetch("https://tzrswsufnerjvprznscs.supabase.co/rest/v1/offers?select=*", {
+    headers: {
+      "apikey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR6cnN3c3VmbmVyanZwcnpuc2NzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzcxMzg5OTEsImV4cCI6MjA5MjcxNDk5MX0.eF23le7QW6RuiBES-j42gslUQjTcml1JTyF9tcCbrVM",
+      "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR6cnN3c3VmbmVyanZwcnpuc2NzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzcxMzg5OTEsImV4cCI6MjA5MjcxNDk5MX0.eF23le7QW6RuiBES-j42gslUQjTcml1JTyF9tcCbrVM"
+    }
+  });
 
-async function loadData() {
-  const lista = document.getElementById("lista");
+  const dados = await res.json();
+  const div = document.getElementById("ofertas");
 
-  const { data, error } = await supabaseClient
-    .from("offers")
-    .select("*");
-
-  if (error) {
-    lista.innerHTML = `<p class="error">Erro: ${error.message}</p>`;
-    return;
-  }
-
-  if (!data || data.length === 0) {
-    lista.innerHTML = "<p>Nenhuma oferta cadastrada ainda.</p>";
-    return;
-  }
-
-  lista.innerHTML = data.map(item => `
+  div.innerHTML = dados.map(item => `
     <div class="card">
-      <h2>${item.name}</h2>
-      <div class="price">R$ ${item.price}</div>
-      <p>Loja: ${item.store}</p>
+      <h3>${item.name}</h3>
+      <p>R$ ${item.price}</p>
+      <p>${item.store}</p>
+      <a href="${item.link}" target="_blank">Comprar</a>
     </div>
   `).join("");
 }
 
-loadData();
+carregar();
 </script>
+
 </body>
 </html>
