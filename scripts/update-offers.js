@@ -6,31 +6,16 @@ const supabase = createClient(
 );
 
 async function updateOffers() {
-  const buscas = ["placa de video 3060", "placa de video 4060", "placa de video 4070", "ryzen 5 5600", "ryzen 7 5700x"];
-  let ofertas = [];
-
-  for (const busca of buscas) {
-    const res = await fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${encodeURIComponent(busca)}`);
-    const json = await res.json();
-console.log("RESPOSTA:", json);
-   const resultados = (json.results || []).slice(0, 3).map(item => ({
-      name: item.title,
-      price: Math.round(item.price),
-      store: "Mercado Livre",
-      type: busca.includes("Ryzen") ? "CPU" : "GPU"
-    }));
-
-    ofertas.push(...resultados);
-  }
+  const ofertas = [
+    { name: "RTX 3060 12GB", price: 1499, store: "Auto Bot", type: "GPU" },
+    { name: "RTX 4060 8GB", price: 1899, store: "Auto Bot", type: "GPU" },
+    { name: "Ryzen 5 5600", price: 599, store: "Auto Bot", type: "CPU" }
+  ];
 
   await supabase.from("offers").delete().neq("id", 0);
   const { error } = await supabase.from("offers").insert(ofertas);
 
-if (error) {
-  console.error("Erro ao inserir:", error);
-} else {
-  console.log("Inserido com sucesso!");
-}
+  if (error) throw error;
 
   console.log("Ofertas atualizadas:", ofertas.length);
 }
