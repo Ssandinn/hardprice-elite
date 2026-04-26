@@ -5,40 +5,239 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>HardPrice Elite</title>
 
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
 <style>
-body{margin:0;background:#09090b;color:white;font-family:Arial,sans-serif}
-header{background:#020617;padding:35px 20px;text-align:center;border-bottom:1px solid #27272a}
-header h1{margin:0;font-size:42px}
-header p{color:#a1a1aa}
-main{max-width:1200px;margin:auto;padding:25px}
-h2{color:#22c55e;margin-top:35px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
-.card{background:#18181b;border:1px solid #27272a;border-radius:18px;padding:20px;transition:.2s}
-.card:hover{transform:translateY(-4px);border-color:#22c55e}
-.badge{display:inline-block;background:#dc2626;color:white;padding:5px 10px;border-radius:999px;font-size:12px;font-weight:bold}
-.card h3{font-size:18px;min-height:55px}
-.price{font-size:30px;color:#22c55e;font-weight:bold}
-.store{color:#d4d4d8}
-.btn{display:block;text-align:center;margin-top:15px;background:#f59e0b;color:black;font-weight:bold;padding:13px;border-radius:12px;text-decoration:none}
-.btn:hover{background:#fbbf24}
-.empty{background:#18181b;padding:20px;border-radius:14px;color:#a1a1aa}
-footer{text-align:center;color:#71717a;padding:30px}
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(circle at top, #2e1065 0%, transparent 35%),
+    linear-gradient(180deg, #070707, #0f0f12);
+  color: white;
+  font-family: 'Poppins', sans-serif;
+}
+
+header {
+  padding: 45px 20px;
+  text-align: center;
+  border-bottom: 1px solid #2a2a2a;
+}
+
+.logo {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 48px;
+  font-weight: 800;
+  color: #a855f7;
+  letter-spacing: 2px;
+  text-shadow: 0 0 18px rgba(168, 85, 247, .7);
+}
+
+.subtitle {
+  color: #d4d4d8;
+  margin-top: 10px;
+}
+
+.highlight {
+  color: #facc15;
+  font-weight: 700;
+}
+
+main {
+  max-width: 1200px;
+  margin: auto;
+  padding: 28px;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  margin-bottom: 35px;
+}
+
+.stat {
+  background: rgba(24, 24, 27, .9);
+  border: 1px solid #3f3f46;
+  border-radius: 18px;
+  padding: 18px;
+}
+
+.stat strong {
+  color: #facc15;
+  font-size: 24px;
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 38px 0 18px;
+}
+
+.section-title h2 {
+  margin: 0;
+  font-size: 28px;
+  color: #a855f7;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  position: relative;
+  background: linear-gradient(180deg, #1c1c22, #111116);
+  border: 1px solid #32323a;
+  border-radius: 22px;
+  padding: 20px;
+  overflow: hidden;
+  transition: .25s;
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top right, rgba(168, 85, 247, .18), transparent 35%);
+  pointer-events: none;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  border-color: #a855f7;
+  box-shadow: 0 0 25px rgba(168, 85, 247, .25);
+}
+
+.badge {
+  display: inline-block;
+  background: linear-gradient(90deg, #ef4444, #f97316);
+  color: white;
+  padding: 6px 11px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.product-name {
+  font-size: 19px;
+  font-weight: 700;
+  min-height: 55px;
+}
+
+.price {
+  margin-top: 14px;
+  color: #facc15;
+  font-size: 32px;
+  font-weight: 800;
+}
+
+.store {
+  color: #d4d4d8;
+  margin: 10px 0 16px;
+}
+
+.type {
+  color: #a78bfa;
+  font-size: 13px;
+  margin-bottom: 14px;
+}
+
+.btn {
+  display: block;
+  text-align: center;
+  background: linear-gradient(90deg, #facc15, #f59e0b);
+  color: black;
+  padding: 13px;
+  border-radius: 14px;
+  text-decoration: none;
+  font-weight: 800;
+  transition: .2s;
+}
+
+.btn:hover {
+  transform: scale(1.03);
+  background: linear-gradient(90deg, #fde047, #facc15);
+}
+
+.empty {
+  padding: 22px;
+  background: #18181b;
+  border: 1px solid #27272a;
+  border-radius: 18px;
+  color: #a1a1aa;
+}
+
+footer {
+  text-align: center;
+  color: #71717a;
+  padding: 35px 20px;
+  border-top: 1px solid #27272a;
+  margin-top: 40px;
+}
+
+@media (max-width: 600px) {
+  .logo {
+    font-size: 36px;
+  }
+
+  main {
+    padding: 18px;
+  }
+}
 </style>
 </head>
 
 <body>
 
 <header>
-  <h1>🔥 HardPrice Elite</h1>
-  <p>Ofertas de processadores e placas de vídeo AMD/NVIDIA</p>
+  <div class="logo">⚡ HardPrice Elite ⚡</div>
+  <p class="subtitle">
+    As melhores ofertas de <span class="highlight">hardware</span> em um só lugar
+  </p>
 </header>
 
 <main>
-  <h2>🧠 Processadores</h2>
-  <div id="cpus" class="grid">Carregando...</div>
 
-  <h2>🎮 Placas de Vídeo</h2>
-  <div id="gpus" class="grid">Carregando...</div>
+  <section class="stats">
+    <div class="stat">
+      <strong id="totalProdutos">0</strong>
+      <p>Produtos listados</p>
+    </div>
+
+    <div class="stat">
+      <strong>CPU / GPU</strong>
+      <p>Categorias principais</p>
+    </div>
+
+    <div class="stat">
+      <strong>Auto</strong>
+      <p>Atualização automática</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-title">
+      <span>🧠</span>
+      <h2>Processadores</h2>
+    </div>
+    <div id="cpus" class="grid">Carregando...</div>
+  </section>
+
+  <section>
+    <div class="section-title">
+      <span>🎮</span>
+      <h2>Placas de Vídeo</h2>
+    </div>
+    <div id="gpus" class="grid">Carregando...</div>
+  </section>
+
 </main>
 
 <footer>
@@ -59,7 +258,10 @@ async function carregar() {
   });
 
   const dados = await res.json();
-  dados.sort((a,b)=>Number(a.price)-Number(b.price));
+
+  dados.sort((a, b) => Number(a.price) - Number(b.price));
+
+  document.getElementById("totalProdutos").innerText = dados.length;
 
   const cpus = dados.filter(item => item.type && item.type.toLowerCase() === "cpu");
   const gpus = dados.filter(item => item.type && item.type.toLowerCase() === "gpu");
@@ -79,10 +281,13 @@ function render(id, lista) {
   div.innerHTML = lista.map(item => `
     <div class="card">
       <span class="badge">🔥 OFERTA</span>
-      <h3>${item.name}</h3>
+      <div class="type">${item.type}</div>
+      <div class="product-name">${item.name}</div>
       <div class="price">R$ ${item.price}</div>
-      <p class="store">🏪 ${item.store}</p>
-      <a class="btn" href="${item.link || "#"}" target="_blank">Comprar agora</a>
+      <div class="store">🏪 ${item.store}</div>
+      <a class="btn" href="${item.link || "#"}" target="_blank">
+        Comprar agora
+      </a>
     </div>
   `).join("");
 }
