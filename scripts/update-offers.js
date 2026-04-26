@@ -1,5 +1,4 @@
-import fetch from "node-fetch";
-import { createClient } from "@supabase/supabase-js";
+const { createClient } = require("@supabase/supabase-js");
 
 const supabase = createClient(
   process.env.SUPABASE_URL,
@@ -7,21 +6,27 @@ const supabase = createClient(
 );
 
 async function updateOffers() {
-  const busca = "RTX 3060";
+  const buscas = ["RTX 3060", "RTX 4060", "RTX 4070", "Ryzen 5 5600", "Ryzen 7 5700X"];
+  let ofertas = [];
 
-  const res = await fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${busca}&sort=price_asc`);
-  const json = await res.json();
+  for (const busca of buscas) {
+    const res = await fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${encodeURIComponent(busca)}&sort=price_asc`);
+    const json = await res.json();
 
-  const ofertas = json.results.slice(0, 5).map(item => ({
-    name: item.title,
-    price: item.price,
-    store: "Mercado Livre"
-  }));
+    const resultados = json.results.slice(0, 3).map(item => ({
+      name: item.title,
+      price: Math.round(item.price),
+      store: "Mercado Livre",
+      type: busca.includes("Ryzen") ? "CPU" : "GPU"
+    }));
+
+    ofertas.push(...resultados);
+  }
 
   await supabase.from("offers").delete().neq("id", 0);
   await supabase.from("offers").insert(ofertas);
 
-  console.log("Atualizado!");
+  console.log("Ofertas atualizadas:", ofertas.length);
 }
 
 updateOffers();
