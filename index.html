@@ -6,132 +6,23 @@
 <title>HardPrice Elite</title>
 
 <style>
-body {
-  margin: 0;
-  background: #09090b;
-  color: white;
-  font-family: Arial, sans-serif;
-}
-
-header {
-  background: linear-gradient(135deg, #020617, #111827);
-  padding: 36px 20px;
-  text-align: center;
-  border-bottom: 1px solid #27272a;
-}
-
-header h1 {
-  margin: 0;
-  font-size: 40px;
-}
-
-header p {
-  color: #a1a1aa;
-  margin-top: 10px;
-}
-
-main {
-  max-width: 1200px;
-  margin: auto;
-  padding: 24px;
-}
-
-h2 {
-  margin-top: 36px;
-  color: #22c55e;
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 18px;
-}
-
-.card {
-  background: #18181b;
-  border: 1px solid #27272a;
-  border-radius: 18px;
-  padding: 16px;
-  transition: 0.2s;
-  position: relative;
-}
-
-.card:hover {
-  transform: translateY(-5px);
-  border-color: #22c55e;
-}
-
-.badge {
-  position: absolute;
-  top: 12px;
-  left: 12px;
-  background: #dc2626;
-  color: white;
-  padding: 5px 9px;
-  border-radius: 999px;
-  font-size: 12px;
-  font-weight: bold;
-}
-
-.img-box {
-  background: #27272a;
-  border-radius: 14px;
-  height: 170px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-}
-
-.img-box img {
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
-}
-
-.card h3 {
-  font-size: 17px;
-  min-height: 48px;
-}
-
-.price {
-  color: #22c55e;
-  font-size: 27px;
-  font-weight: bold;
-}
-
-.store {
-  color: #d4d4d8;
-}
-
-.btn {
-  display: block;
-  text-align: center;
-  margin-top: 14px;
-  background: #f59e0b;
-  color: black;
-  font-weight: bold;
-  padding: 12px;
-  border-radius: 12px;
-  text-decoration: none;
-}
-
-.btn:hover {
-  background: #fbbf24;
-}
-
-.empty {
-  background: #18181b;
-  padding: 20px;
-  border-radius: 14px;
-  color: #a1a1aa;
-}
-
-footer {
-  text-align: center;
-  color: #71717a;
-  padding: 30px;
-}
+body{margin:0;background:#09090b;color:white;font-family:Arial,sans-serif}
+header{background:#020617;padding:35px 20px;text-align:center;border-bottom:1px solid #27272a}
+header h1{margin:0;font-size:42px}
+header p{color:#a1a1aa}
+main{max-width:1200px;margin:auto;padding:25px}
+h2{color:#22c55e;margin-top:35px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
+.card{background:#18181b;border:1px solid #27272a;border-radius:18px;padding:20px;transition:.2s}
+.card:hover{transform:translateY(-4px);border-color:#22c55e}
+.badge{display:inline-block;background:#dc2626;color:white;padding:5px 10px;border-radius:999px;font-size:12px;font-weight:bold}
+.card h3{font-size:18px;min-height:55px}
+.price{font-size:30px;color:#22c55e;font-weight:bold}
+.store{color:#d4d4d8}
+.btn{display:block;text-align:center;margin-top:15px;background:#f59e0b;color:black;font-weight:bold;padding:13px;border-radius:12px;text-decoration:none}
+.btn:hover{background:#fbbf24}
+.empty{background:#18181b;padding:20px;border-radius:14px;color:#a1a1aa}
+footer{text-align:center;color:#71717a;padding:30px}
 </style>
 </head>
 
@@ -139,7 +30,7 @@ footer {
 
 <header>
   <h1>🔥 HardPrice Elite</h1>
-  <p>As melhores ofertas de processadores e placas de vídeo AMD/NVIDIA</p>
+  <p>Ofertas de processadores e placas de vídeo AMD/NVIDIA</p>
 </header>
 
 <main>
@@ -159,8 +50,6 @@ const API_URL = "https://tzrswsufnerjvprznscs.supabase.co/rest/v1/offers?select=
 
 const ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR6cnN3c3VmbmVyanZwcnpuc2NzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzcxMzg5OTEsImV4cCI6MjA5MjcxNDk5MX0.eF23le7QW6RuiBES-j42gslUQjTcml1JTyF9tcCbrVM";
 
-const FALLBACK_IMAGE = "https://cdn-icons-png.flaticon.com/512/1048/1048953.png";
-
 async function carregar() {
   const res = await fetch(API_URL, {
     headers: {
@@ -170,8 +59,7 @@ async function carregar() {
   });
 
   const dados = await res.json();
-
-  dados.sort((a, b) => Number(a.price) - Number(b.price));
+  dados.sort((a,b)=>Number(a.price)-Number(b.price));
 
   const cpus = dados.filter(item => item.type && item.type.toLowerCase() === "cpu");
   const gpus = dados.filter(item => item.type && item.type.toLowerCase() === "gpu");
@@ -188,28 +76,15 @@ function render(id, lista) {
     return;
   }
 
-  div.innerHTML = lista.map(item => {
-    const imagem = item.image || item.img || FALLBACK_IMAGE;
-    const link = item.link || "#";
-
-    return `
-      <div class="card">
-        <div class="badge">🔥 OFERTA</div>
-
-        <div class="img-box">
-          <img src="${imagem}" alt="${item.name}">
-        </div>
-
-        <h3>${item.name}</h3>
-        <div class="price">R$ ${item.price}</div>
-        <p class="store">🏪 ${item.store}</p>
-
-        <a class="btn" href="${link}" target="_blank">
-          Comprar agora
-        </a>
-      </div>
-    `;
-  }).join("");
+  div.innerHTML = lista.map(item => `
+    <div class="card">
+      <span class="badge">🔥 OFERTA</span>
+      <h3>${item.name}</h3>
+      <div class="price">R$ ${item.price}</div>
+      <p class="store">🏪 ${item.store}</p>
+      <a class="btn" href="${item.link || "#"}" target="_blank">Comprar agora</a>
+    </div>
+  `).join("");
 }
 
 carregar();
