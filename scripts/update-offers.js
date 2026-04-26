@@ -10,7 +10,7 @@ async function updateOffers() {
   let ofertas = [];
 
   for (const busca of buscas) {
-    const res = await fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${encodeURIComponent(busca)}&sort=price_asc`);
+    const res = await fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${encodeURIComponent(busca)}`);
     const json = await res.json();
 
    const resultados = (json.results || []).slice(0, 3).map(item => ({
