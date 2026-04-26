@@ -6,7 +6,7 @@ const supabase = createClient(
 );
 
 async function updateOffers() {
-  const buscas = ["RTX 3060", "RTX 4060", "RTX 4070", "Ryzen 5 5600", "Ryzen 7 5700X"];
+  const buscas = ["placa de video 3060", "placa de video 4060", "placa de video 4070", "ryzen 5 5600", "ryzen 7 5700x"];
   let ofertas = [];
 
   for (const busca of buscas) {
