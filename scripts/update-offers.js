@@ -7,9 +7,9 @@ const supabase = createClient(
 
 async function updateOffers() {
   const ofertas = [
-    { name: "RTX 3060 12GB", price: 1499, store: "Auto Bot", type: "GPU" },
+    { name: "RTX 3060 12GB", price: 2566, store: "Amazon", type: "GPU" }, link: "https://amzn.to/4vTL0qv"
     { name: "RTX 4060 8GB", price: 3399, store: "Amazon", type: "GPU", link: "https://amzn.to/4cLE3zg" },
-    { name: "Ryzen 5 5600", price: 599, store: "Auto Bot", type: "CPU" }
+    { name: "Ryzen 5 5600GT", price: 880, store: "Amazon", type: "CPU" } link: "https://amzn.to/4d74XTl"
   ];
 
   await supabase.from("offers").delete().neq("id", 0);
