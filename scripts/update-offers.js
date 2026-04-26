@@ -8,7 +8,7 @@ const supabase = createClient(
 async function updateOffers() {
   const ofertas = [
     { name: "RTX 3060 12GB", price: 1499, store: "Auto Bot", type: "GPU" },
-    { name: "RTX 4060 8GB", price: 1899, store: "Auto Bot", type: "GPU" },
+    { name: "RTX 4060 8GB", price: 3399, store: "Amazon", type: "GPU", link: "https://amzn.to/4cLE3zg" },
     { name: "Ryzen 5 5600", price: 599, store: "Auto Bot", type: "CPU" }
   ];
 
