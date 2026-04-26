@@ -13,7 +13,7 @@ async function updateOffers() {
     const res = await fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${encodeURIComponent(busca)}&sort=price_asc`);
     const json = await res.json();
 
-    const resultados = json.results.slice(0, 3).map(item => ({
+   const resultados = (json.results || []).slice(0, 3).map(item => ({
       name: item.title,
       price: Math.round(item.price),
       store: "Mercado Livre",
